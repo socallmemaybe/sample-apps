@@ -174,31 +174,37 @@ class SandboxFrame(object):
         self.port = str(port)
 
     def get_demo_projects(self):
-        """
-        """
+        """Gets the list for Kaa application from sandbox. Returns result in JSON format."""
         url = 'http://{}:{}/sandbox/rest/api/demoProjects'.format(self.host, self.port)
         req = requests.get(url)
         if req.status_code != requests.codes.ok:
             raise KaaSanboxError('Unable to get list of applications from Sandbox. ' \
                                 'Return code: %d'%req.status_code)
+
         return req.json()
 
     def is_build_successful(self, app_id):
-        """
+        """Gets application build result. Returns True or False.
+        :param app_id: name of application on sandbox.
+        :type app_id: string.
         """
         url = 'http://{}:{}/sandbox/rest/api/isProjectDataExists?projectId={}&dataType=BINARY'.format(self.host, self.port, app_id)
         req = requests.get(url)
         if req.status_code != requests.codes.ok:
             raise KaaSanboxError('Unable to check is it BINARY file in the Sandbox. ' \
                                 'Return code: %d'%req.status_code)
+
         return req.json()
 
     def build_android_java_demo(self, app_id):
-        """
+        """Build demo applications from sandbox. Returns logs of build in JSON format.
+        :param app_id: name of application on sandbox.
+        :type app_id: string.
         """
         url = 'http://{}:{}/sandbox/rest/api/buildProjectData?projectId={}&dataType=BINARY'.format(self.host, self.port, app_id)
         header = 'Content-Type: application/json'
         req = requests.post(url, header)
         if req.status_code != requests.codes.ok:
             raise KaaSanboxError('Can not build application {}'.format(app_id))
+
         return req.content
