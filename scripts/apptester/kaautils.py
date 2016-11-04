@@ -201,6 +201,5 @@ class SandboxFrame(object):
         req = requests.post(url, header)
         if req.status_code != requests.codes.ok:
             raise KaaSanboxError('Can not build application {}'.format(app_id))
-
+        
         return req.content
-

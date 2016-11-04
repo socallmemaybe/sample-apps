@@ -310,7 +310,6 @@ class AppTesterFramework(object):
                 for app in self.result_matrix:
                     build_result = [app, self.result_matrix[app], 'N/A']
                     table_data.append(build_result)
-
             table = AsciiTable(table_data)
         print table.table
 
@@ -327,7 +326,6 @@ def console_args_parser():
                         action='store_true')
     parser.add_argument('-a', metavar='application',
                         help='specify application')
-
     parser.add_argument('-j', help='build java/android applications', 
                         action='store_true')
     parser.add_argument('-s', metavar='server',
